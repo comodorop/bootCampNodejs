@@ -1,27 +1,12 @@
-// let names = ["Pablo", "Pduardo", "Jimena", "Alberto", "Edwin"]
-// let newArray = names.filter(obj=>{
-//     if(obj ==="Pablo"){
-//         return obj
-//     }
-// })
-// console.log(Array.isArray(names))
-// console.log(names.length > 0)
-// let num = 0
-// console.log(typeof(num))
-// console.log(newArray)
+const mysql = require('promise-mysql2');
 
-// let obj={
-//     "name":""
-// }
-
-// if(obj.hasOwnProperty("name") && obj.name !== "" ){
-//     console.log("Todo bien")
-// }else{
-//     console.log("Dato requerido")
-// }
-
-
-
-let num1 = 0
-
-console.log(num1 === "0")
+mysql.createConnection({
+    "host": "127.0.0.1",
+    "user": "roott",
+    "password": "1234565",
+    "database": "bootcamp"
+}).then(cm=>{
+    console.log("Connecction success")
+}).catch(err=>{
+    console.log("Connection DB fail")
+})
