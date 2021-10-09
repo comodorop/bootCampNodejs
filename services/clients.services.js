@@ -1,6 +1,6 @@
 
 const { uuid } = require('uuidv4');
-const {getConnection}  = require('../connection/mysql.connection')
+const { getConnection } = require('../connection/mysql.connection')
 
 function createClients(objClients) {
     let cn = getConnection()
@@ -9,6 +9,37 @@ function createClients(objClients) {
     cn.query(sql)
 }
 
+
+function getClientsPromise() {
+    return new Promise((resolve, reject) => {
+        let cn = getConnection()
+        let sql = `SELECT * FROM clients`
+        cn.query(sql).then(data => {
+            resolve(data)
+        }).catch(err => {
+            reject(err)
+        })
+    })
+}
+
+function getClientsPromise2() {
+    let cn = getConnection()
+    let sql = `SELECT * FROM clients`
+    return cn.query(sql)
+}
+
+function getClientsById(uuid){
+    let cn = getConnection()
+    let sql = `SELECT * FROM clients WHERE uuid = '${uuid}'`
+    return cn.query(sql)
+}
+
+
+
+
 module.exports = {
-    createClients
+    createClients,
+    getClientsPromise,
+    getClientsPromise2,
+    getClientsById
 }

@@ -1,11 +1,42 @@
 const express = require('express')
 
 const route = express.Router()
-const  {createClients}  = require('../services/clients.services')
+const { createClients, getClientsPromise, getClientsPromise2, getClientsById } = require('../services/clients.services')
 
 
-route.get('/', (req, res) => {
-    res.status(200).send({ msg: "Endpoint por ruta" })
+route.get('/:id', async (req, res) => {
+    try {
+        let { id } = req.params
+        let [rows, fields] = await getClientsById(id)
+        if(rows.length> 0){
+            res.status(200).send({ status: 200, data: rows[0], msg: " Client" })
+        }else{
+            res.status(200).send({ status: 200, data: [], msg: "Client not found" })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ status: 200, data: [], msg: "There is a problem in the request" })
+    }
+})
+
+route.get('/', async (req, res) => {
+    try {
+        let [rows, fields] = await getClientsPromise2()
+        res.status(200).send({ status: 200, data: rows, msg: "List of clients" })
+    } catch (error) {
+        res.status(500).send({ status: 200, data: [], msg: "There is a problem in the request" })
+    }
+    // getClientsPromise().then(data =>{
+    //     res.status(200).send({ status: 200, data: data[0],  msg: "List of clients" })
+    // }).catch(err=>{
+    //     res.status(500).send({ status: 200, data: [],  msg: "There is a problem in the request" })
+    // })
+
+    // getClientsPromise2().then(data =>{
+    //     res.status(200).send({ status: 200, data: data[0],  msg: "List of clients" })
+    // }).catch(err=>{
+    //     res.status(500).send({ status: 200, data: [],  msg: "There is a problem in the request" })
+    // })
 })
 
 route.post('/', (req, res) => {
@@ -16,7 +47,7 @@ route.post('/', (req, res) => {
         res.status(200).send({ msg: "New client avaliable" })
     }
     else {
-        res.status(401).send({ msg: msg})
+        res.status(401).send({ msg: msg })
     }
 })
 
