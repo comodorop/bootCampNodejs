@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
-function generateToken() {
+function generateToken(data) {
     return jwt.sign(
-        { data: { user: "pjgt", rol: "admin" }},
+        { data: data},
         process.env.SECRET,
         {expiresIn: 15}
     )
