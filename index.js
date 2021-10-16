@@ -7,14 +7,16 @@ require('dotenv').config()
 const { createConnection } = require('./connection/mysql.connection')
 const clients = require('./routes/clients.route')
 const auth = require('./routes/auth.route')
+const users = require('./routes/users.route')
 const app = express()
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
-app.use(listWhiteIp)
+// app.use(listWhiteIp)
 app.use('/v1/clients', clients)
 app.use('/v1/auth', auth)
+app.use('/v1/users', users)
 
 createConnection().then(ok => {
     app.listen(process.env.PORT, () => {
