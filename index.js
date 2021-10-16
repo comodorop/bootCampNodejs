@@ -18,6 +18,10 @@ app.use('/v1/clients', clients)
 app.use('/v1/auth', auth)
 app.use('/v1/users', users)
 
+
+
+
+
 createConnection().then(ok => {
     app.listen(process.env.PORT, () => {
         console.log(`Server running in the port ${process.env.PORT}`)

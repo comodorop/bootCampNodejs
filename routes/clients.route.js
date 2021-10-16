@@ -1,7 +1,7 @@
 const express = require('express')
 
 const route = express.Router()
-const { createClients, getClientsPromise, getClientsPromise2, getClientsById } = require('../services/clients.services')
+const { createClients, getClientsPromise, getClientsPromise2, getClientsById, getClientsByKnex } = require('../services/clients.services')
 
 
 route.get('/:id', async (req, res) => {
@@ -21,9 +21,11 @@ route.get('/:id', async (req, res) => {
 
 route.get('/', async (req, res) => {
     try {
-        let [rows, fields] = await getClientsPromise2()
+        let rows = await getClientsByKnex()
+        // let [rows, fields] = await getClientsPromise2()
         res.status(200).send({ status: 200, data: rows, msg: "List of clients" })
     } catch (error) {
+        console.log(error)
         res.status(500).send({ status: 200, data: [], msg: "There is a problem in the request" })
     }
     // getClientsPromise().then(data =>{
