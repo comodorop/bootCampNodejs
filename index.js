@@ -8,7 +8,11 @@ const { createConnection } = require('./connection/mysql.connection')
 const clients = require('./routes/clients.route')
 const auth = require('./routes/auth.route')
 const users = require('./routes/users.route')
+const products = require('./routes/products.route')
 const app = express()
+const fileUpload = require('express-fileupload');
+app.use(fileUpload())
+
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
@@ -17,7 +21,7 @@ app.use(express.urlencoded({
 app.use('/v1/clients', clients)
 app.use('/v1/auth', auth)
 app.use('/v1/users', users)
-
+app.use('/v1/products', products)
 
 
 
