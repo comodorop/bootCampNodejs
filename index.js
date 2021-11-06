@@ -1,5 +1,6 @@
 const express = require('express')
 const mysql = require('promise-mysql2');
+const cors = require('cors')
 const { uuid } = require('uuidv4');
 const { listWhiteIp } = require('./middelware/index')
 require('dotenv').config()
@@ -10,6 +11,7 @@ const auth = require('./routes/auth.route')
 const users = require('./routes/users.route')
 const products = require('./routes/products.route')
 const app = express()
+app.use(cors())
 const fileUpload = require('express-fileupload');
 app.use(fileUpload())
 
