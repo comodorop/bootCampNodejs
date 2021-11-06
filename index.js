@@ -18,6 +18,9 @@ app.use(express.urlencoded({
     extended: true
 }));
 // app.use(listWhiteIp)
+
+app.use('/documents', express.static('./documents'));
+
 app.use('/v1/clients', clients)
 app.use('/v1/auth', auth)
 app.use('/v1/users', users)
